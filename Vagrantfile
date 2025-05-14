@@ -6,13 +6,17 @@ Vagrant.configure("2") do |config|
     controle.vm.hostname = "controle"
     controle.vm.network "private_network", ip: "172.17.177.100"
     controle.vm.provider "virtualbox" do |vb|
-        vb.memory = "2048"
+        vb.memory = "4096"
         vb.cpus = 2
         vb.name = "controle"
     end
     controle.vm.provision "ansible_local" do |al|
-    	al.playbook = "playbook.yml"
+    	al.playbook = "principal.yml"
 	al.install_mode = "pip"
+    end
+    controle.vm.provision "ansible_local" do |al|
+        al.playbook = "installjenkins.yml"
+        al.install_mode = "pip"
     end
   end
 
